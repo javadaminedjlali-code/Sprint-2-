@@ -7,26 +7,40 @@ in the viewport via tabs, modals, and split panes.
 
 ---
 
-## Setup
+## Quick start (one-click)
 
-Prereqs: Node.js 18+ (no native compilation needed — sql.js runs in pure JS).
+**Prerequisite:** install **Node.js LTS** from https://nodejs.org (one-time).
+
+Then:
+
+- **Windows** — double-click **`run-windows.bat`**
+- **Mac** — double-click **`run-mac.command`** (if macOS blocks it the first
+  time, right-click → Open → Open, or run `chmod +x run-mac.command` once in
+  Terminal)
+
+The launcher installs dependencies the first time, starts the server, and
+opens your browser to **http://localhost:3000** automatically.
+
+Log in with one of the test accounts below.
+
+To stop the server, press **Ctrl + C** in the terminal window the launcher
+opened, or just close that window.
+
+---
+
+## Manual start (any OS)
+
+If you prefer the command line:
 
 ```bash
-cd sprint2/backend
+cd backend
 npm install
 npm start
 ```
 
-The app will be live at **http://localhost:3000** — Express serves the API
-*and* the frontend from the same port, so no separate dev server needed.
+Then open http://localhost:3000.
 
-Optional env vars:
-
-- `PORT` (default `3000`)
-- `JWT_SECRET` (default dev secret; set in production)
-
-The SQLite DB file `registration.db` is created next to `server.js` on first
-launch and seeded automatically. Delete it to reset to a clean slate.
+Optional env vars: `PORT` (default `3000`), `JWT_SECRET` (default dev secret).
 
 ---
 
@@ -112,6 +126,8 @@ schedule-conflict detection (same parsing rules, ported to server).
 ```
 sprint2/
 ├── README.md
+├── run-windows.bat           double-click on Windows
+├── run-mac.command           double-click on macOS
 ├── backend/
 │   ├── package.json          dependencies
 │   ├── server.js             Express app, API routes, auth, business rules
@@ -121,6 +137,9 @@ sprint2/
     ├── styles.css            design tokens preserved from Sprint 1
     └── app.js                router, API client, 11 views
 ```
+
+The SQLite DB file `registration.db` is created next to `server.js` on first
+launch and seeded automatically. Delete it any time to reset to a clean slate.
 
 ---
 
@@ -132,3 +151,19 @@ sprint2/
 - `GET /api/me/enrollments` · `POST /api/me/enrollments` · `DELETE /api/me/enrollments/:courseId`
 - `GET /api/me/teaching` · `GET /api/courses/:id/roster` (prof)
 - `GET /api/professors` · `GET /api/professors/:id/ratings` · `POST /api/professors/:id/ratings`
+
+---
+
+## Troubleshooting
+
+**"npm install is disabled on this system" on Windows** — PowerShell is
+blocking scripts. Either (a) use `run-windows.bat` which calls `npm.cmd`
+directly and avoids the issue, or (b) run once in PowerShell:
+`Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser`.
+
+**"Port 3000 already in use"** — something else is on that port. Set
+`PORT=3001` before running, or close whatever else is using it.
+
+**Mac: "can't be opened because it is from an unidentified developer"** —
+right-click `run-mac.command` → Open → Open. macOS remembers this choice
+after the first time.
